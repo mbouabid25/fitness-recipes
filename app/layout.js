@@ -1,5 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { ClerkProvider } from '@clerk/nextjs'; // Import ClerkProvider
+import Navbar from './components/navbar'; // Import the Navbar component
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,10 +21,25 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          {/* Google Fonts or other external fonts */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap"
+            rel="stylesheet"
+          />
+        </head>
+        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+          <header>
+            {/* Include the Navbar */}
+            <Navbar />
+          </header>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
